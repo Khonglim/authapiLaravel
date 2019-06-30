@@ -15,19 +15,23 @@ use Illuminate\Support\Facades\DB;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     $user = $request->user();
-    $x = $user->id;
-    $data= DB::table('users')->where('id',$user->id)->get();
+
+    $data= DB::table('student_info')->where('student_code',$user->student_code)->get();
 
     return response()->json($data);
 });
 
-Route::middleware('auth:api')->get('/data', function (Request $request) {
+Route::middleware('auth:api')->post('/searchdata', function (Request $request) {
+    $data = $request->json()->all();
     $user = $request->user();
-    $x = $user->id;
-    $data= DB::table('users')->get();
-    return response()->json($data);
+
+        $data= DB::table('status_school')->orWhere('date', 'LIKE', '%'.$data['searchdata'].'%' )->where('id_user','=',$user->id)->get();
+        return response($data,200)->header('Content-Type', 'application/json');
 });
 
 
 
 Route::post('register', 'Api\RegisterController@register');
+
+
+
