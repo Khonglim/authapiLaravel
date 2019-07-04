@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Classes\PushBots;
 class HomeController extends Controller
 {
     /**
@@ -23,6 +24,19 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $pb = new PushBots();
+// Application ID
+$appID = '5d181c5bb79412324c1de645';
+// Application Secret
+$appSecret = 'eec56601681ede64c0baf1cf7ff94e74';
+$pb->App($appID, $appSecret);
+$pb->Platform(array("0","1"));
+$alias = '0961340227';
+$pb->Alias($alias);
+// Notification Settings
+$pb->Alert("narathorn");
+$pb->Push();
+
         return view('home');
     }
 }
