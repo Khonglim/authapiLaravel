@@ -15,19 +15,54 @@ use Illuminate\Support\Facades\DB;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     $user = $request->user();
-
     $data= DB::table('student_info')->where('student_code',$user->student_code)->get();
-
     return response()->json($data);
 });
 
 Route::middleware('auth:api')->post('/searchdata', function (Request $request) {
     $data = $request->json()->all();
     $user = $request->user();
-
-        $data= DB::table('status_school')->orWhere('date', 'LIKE', '%'.$data['searchdata'].'%' )->where('id_user','=',$user->id)->get();
-        return response($data,200)->header('Content-Type', 'application/json');
+    $data= DB::table('status_school')->orWhere('term', 'LIKE', '%'.$data['searchTerm'].'%' )->where('student_code','=',$user->student_code)->get();
+    return response($data,200)->header('Content-Type', 'application/json');
 });
+
+Route::middleware('auth:api')->post('/searchdata2', function (Request $request) {
+    $data = $request->json()->all();
+    $user = $request->user();
+    $data= DB::table('status_school')->where('student_code','=',$user->student_code)->get();
+    return response($data,200)->header('Content-Type', 'application/json');
+});
+
+
+
+Route::middleware('auth:api')->get('/dataTerm', function (Request $request) {
+    $user = $request->user();
+    $data= DB::table('term')->get();
+    return response()->json($data);
+});
+
+Route::middleware('auth:api')->get('/dataMonth', function (Request $request) {
+    $user = $request->user();
+    $data= DB::table('month')->get();
+    return response()->json($data);
+});
+
+Route::middleware('auth:api')->get('/dataStatus', function (Request $request) {
+    $user = $request->user();
+    $data= DB::table('status')->get();
+    return response()->json($data);
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 
