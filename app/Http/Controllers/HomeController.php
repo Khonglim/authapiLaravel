@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Classes\PushBots;
+use App\User;
+use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     /**
@@ -37,8 +39,14 @@ class HomeController extends Controller
 // Notification Settings
 //$pb->Alert("narathorn");
 //$pb->Push();
-$role = Role::create(['name' => 'admin_ischool']);
-$permission = Permission::create(['name' => 'edit articles']);
+
+//$role = Role::create(['name' => 'teacher']);
+  //$permission = Permission::find(1);
+   // User::find(1)->givePermissionTo($permission);
+    //$role =  Role::find(1);
+    //$role->revokePermissionTo($permission);
+  //  $posts = DB::table('users')->leftJoin('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+ 
         return view('home');
     }
 }
