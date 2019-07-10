@@ -1,64 +1,70 @@
-@extends('layouts.app')
+@extends('layouts.adminlte_login')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        @if(session()->has('login_error'))
-                        <div class="alert alert-warning">
-                          {{ session()->get('login_error') }}
-                        </div>
-                      @endif
-                      <div class="form-group{{ $errors->has('identity') ? ' has-error' : '' }}">
-                        <label for="identity" class="col-md-3 control-label">ผู้ใช้</label>
-
-                        <div class="col-md-8">
-                          <input id="identity" type="identity" class="form-control" name="identity"
-                                 value="{{ old('identity') }}" autofocus>
-
-                          @if ($errors->has('identity'))
-                            <span class="help-block">
-                                                <strong>{{ $errors->first('identity') }}</strong>
-                                            </span>
-                          @endif
-                        </div>
-                      </div>
-
-                      <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                        <label for="password" class="col-md-3 control-label">รหัสผ่าน</label>
-
-                        <div class="col-md-8">
-                          <input id="password" type="password" class="form-control" name="password">
-
-                          @if ($errors->has('password'))
-                            <span class="help-block">
-                                                <strong>{{ $errors->first('password') }}</strong>
-                                            </span>
-                          @endif
-                        </div>
-                      </div>
-
-
-                      <div class="form-group">
-                        <div class="col-md-8 col-md-offset-5">
-                          <button type="submit" class="btn btn-primary">
-                            Login
-                          </button>
-
-
-                        </div>
-                      </div>
-                    </form>
-                </div>
-            </div>
+<div class="login-box">
+        <div class="login-logo">
+          <a href="{{('/')}}"><b>ischool</b>tec</a>
         </div>
-    </div>
-</div>
+        <!-- /.login-logo -->
+        <div class="card">
+          <div class="card-body login-card-body">
+            <p class="login-box-msg">
+                @if(session()->has('login_error'))
+              <div class="alert alert-warning">
+                {{ session()->get('login_error') }}
+              </div>
+            @endif
+
+            </p>
+
+            <form action="{{ route('login') }}" method="post">
+              @csrf
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="ผู้ใช้" name="identity" required>
+                <div class="input-group-append input-group-text">
+                    <span class="fas fa-phone"></span>
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <input type="password" class="form-control" placeholder="รหัสผ่าน" name="password" required>
+                <div class="input-group-append input-group-text">
+                    <span class="fas fa-lock"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-8">
+                  <div class="icheck-primary">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">
+                      จำรหัสผ่าน
+                    </label>
+                  </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-4">
+                  <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                </div>
+                <!-- /.col -->
+              </div>
+            </form>
+
+
+
+            <p class="mb-1">
+              <a href="#">I forgot my password</a>
+            </p>
+
+          </div>
+          <!-- /.login-card-body -->
+        </div>
+      </div>
+      <!-- /.login-box -->
+
+
+
+
+
+
+
 @endsection
