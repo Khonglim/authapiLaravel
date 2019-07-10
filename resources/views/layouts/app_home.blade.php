@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>AdminLTE 3 | Starter</title>
+  <title>I School Tec</title>
  <!-- Font Awesome -->
  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
@@ -135,7 +135,7 @@
                   <a href="index3.html" class="brand-link">
                     <img src="adminLTE/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                          style="opacity: .8">
-                    <span class="brand-text font-weight-light">AdminLTE 3</span>
+                    <span class="brand-text font-weight-light">I School Tec</span>
                   </a>
 
                   <!-- Sidebar -->
@@ -143,7 +143,7 @@
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                       <div class="image">
-                        <img src="adminLTE/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="adminLTE/dist/img/user2-160x160.png" class="img-circle elevation-2" alt="User Image">
                       </div>
                       <div class="info">
                         <a href="#" class="d-block">{{auth()->user()->username}}</a>
@@ -153,13 +153,19 @@
                     <!-- Sidebar Menu -->
                     <nav class="mt-2">
                       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                             @role('admin_ischool')
+                    @role('admin_ischool')
                              @if(auth()->user()->can('edit articles') && auth()->user()->can('writer articles'))
+                             <li class="nav-item">
+                                    <a href="{{url('/manageuserinfo')}}" class="nav-link ">
+                                             <i class="fas fa-book-reader nav-icon"></i>
+                                             <p>ข้อมูลส่วนตัว</p>
+                                   </a>
+                            </li>
                              <li class="nav-item">
                              <a href="{{url('/manageuser')}}" class="nav-link ">
                                       <i class="fas fa-user-cog nav-icon"></i>
                                       <p>จัดการสิทธิ์ผู้ใช้</p>
-                                </a>
+                            </a>
                             </li>
                             <li class="nav-item">
                                     <a href="{{url('/manageschool')}}" class="nav-link ">
@@ -172,6 +178,12 @@
                              @else
                            @endif
                          @else
+                         <li class="nav-item">
+                                <a href="{{url('/manageuserinfo')}}" class="nav-link ">
+                                         <i class="fas fa-book-reader nav-icon"></i>
+                                         <p>ข้อมูลส่วนตัว</p>
+                               </a>
+                        </li>
                          <li class="nav-item has-treeview menu-open">
                             <a href="#" class="nav-link active">
                               <i class="nav-icon fas fa-tachometer-alt"></i>

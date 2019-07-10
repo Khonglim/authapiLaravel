@@ -18,13 +18,35 @@
                               <h3 class="card-title">การจัดการโรงเรียน</h3>
                             </div>
                               <div class="card-body">
-                                    <table class="table table-striped">
+                                    <table class="table table-bordered">
                                             <thead>
                                               <tr>
                                                 <th>#</th>
                                                 <th>ชื่อโรงเรียน</th>
-                                                <th></th>
+                                                <th>เพิ่มเติม</th>
                                               </tr>
+                                           @forelse ($name_school as $item)
+                                          <tr>
+                                              <td>
+                                                  #
+                                              </td>
+                                              <td>
+                                                  {{$item->name_shcool}}
+                                              </td>
+                                              <td>
+                                                <a href="#"  class="btn btn-info btn-sm"><i class="fas fa-users"></i> ดูรายชื่อนักเรียน</a>
+                                                <a href="#"  class="btn btn-primary btn-sm"><i class="fas fa-user-plus"></i> เพิ่มนักเรียน</a>
+                                                <a href="#"  class="btn btn-warning btn-sm"><i class="far fa-edit"></i> แก้ไข</a>
+                                                <a href="#"  class="btn btn-danger btn-sm"><i class="fas fa-receipt"></i> ลบ</a>
+                                              </td>
+                                          </tr>
+                                           @empty
+
+                                           @endforelse
+
+
+
+
                                             </thead>
                                             <tbody>
 
@@ -32,7 +54,7 @@
                                           </table>
                               </div>
                               <div class="card-footer">
-                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-addSchool">เพิ่มโรงเรียน</button>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-addSchool">เพิ่มโรงเรียน</button>
 
                                 <div class="modal fade" id="modal-addSchool">
                                         <div class="modal-dialog modal-lg">
