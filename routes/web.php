@@ -19,4 +19,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/manageuser', 'ManageUserController@index')->name('manageuser');
+Route::get('/manageschool', 'ManageSchoolController@index')->name('manageschool');
 

@@ -159,8 +159,16 @@
                              <a href="{{url('/manageuser')}}" class="nav-link ">
                                       <i class="fas fa-user-cog nav-icon"></i>
                                       <p>จัดการสิทธิ์ผู้ใช้</p>
-                                    </a>
-                                  </li>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                    <a href="{{url('/manageschool')}}" class="nav-link ">
+                                             <i class="fas fa-school nav-icon"></i>
+                                             <p>จัดการโรงเรียน</p>
+                                       </a>
+                            </li>
+
+
                              @else
                            @endif
                          @else
@@ -230,7 +238,7 @@
                                 <a class="nav-link" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                               document.getElementById('logout-form').submit();">
-                            <i class="fas fa-compass fa-xs nav-icon"></i>      {{ __('ออกจากระบบ') }}
+                            <i class="fas fa-compass  nav-icon"></i>   <p>ออกจากระบบ</p>
                              </a>
 
                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
