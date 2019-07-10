@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use App\Classes\PushBots;
 class HomeController extends Controller
 {
@@ -36,7 +37,8 @@ class HomeController extends Controller
 // Notification Settings
 //$pb->Alert("narathorn");
 //$pb->Push();
-
+$role = Role::create(['name' => 'admin_ischool']);
+$permission = Permission::create(['name' => 'edit articles']);
         return view('home');
     }
 }
