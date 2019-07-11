@@ -46,7 +46,11 @@ class HomeController extends Controller
     //$role =  Role::find(1);
     //$role->revokePermissionTo($permission);
   //  $posts = DB::table('users')->leftJoin('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
- 
-        return view('home');
+
+  if(auth()->user()->isAdmin()) {
+    return view('adminischool/dashboard');
+} else {
+    return view('home');
+}
     }
 }

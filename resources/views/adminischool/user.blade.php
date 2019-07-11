@@ -1,4 +1,4 @@
-@extends('layouts.app_home')
+@extends('layouts.admin_ischool')
 @section('content')
 <div class="content-wrapper">
         <div class="content-header">
@@ -24,10 +24,18 @@
                                                 <th>#</th>
                                                 <th>ชื่อผู้ใช้</th>
                                                 <th>สิทธิ์การเข้าถึง</th>
+                                                <th>เพิ่มเติม</th>
                                               </tr>
                                             </thead>
                                             <tbody>
-                                                    
+                                             @foreach ($users as $item)
+                                                <tr>
+                                                    <td></td>
+                                                <td>{{$item->username}}</td>
+                                                <td>{{$item->name_auth}}</td>
+                                                <td>*</td>
+                                                </tr>
+                                             @endforeach
                                             </tbody>
                                           </table>
                               </div>
