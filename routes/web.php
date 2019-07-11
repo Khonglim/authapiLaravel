@@ -28,6 +28,22 @@ Route::group(['prefix' => 'adminmaster'], function(){
         Route::get('/school', 'admin\AdminController@school');
         Route::post('/adduser', 'admin\AdminController@adduser' );
         Route::post('/addschool', 'admin\AdminController@addschool' );
+        Route::get('/addschool/{id}', 'admin\AdminController@detlieschool' );
+    });
+
+});
+
+
+//Route for admin
+Route::group(['prefix' => 'adminschool'], function(){
+    Route::group(['middleware' => ['admin']], function(){
+        Route::get('/dashboard', 'admin\AdminController@dashboard');
+        Route::get('/profile', 'admin\AdminController@profile');
+        Route::get('/user', 'admin\AdminController@user');
+        Route::get('/school', 'admin\AdminController@school');
+        Route::post('/adduser', 'admin\AdminController@adduser' );
+        Route::post('/addschool', 'admin\AdminController@addschool' );
+        Route::get('/addschool/{id}', 'admin\AdminController@detlieschool' );
     });
 
 });
@@ -39,12 +55,6 @@ Route::group(['prefix' => 'adminmaster'], function(){
 
 
 
-
-
-
-Route::get('/manageuser', 'ManageUserController@index')->name('manageuser');
-Route::get('/manageschool', 'ManageSchoolController@index')->name('manageschool');
-Route::get('/manageuserinfo', 'ManageUserInfoController@index')->name('manageschool');
 
 
 

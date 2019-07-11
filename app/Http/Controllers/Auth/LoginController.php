@@ -28,9 +28,12 @@ class LoginController extends Controller
      */
     protected function redirectTo()
     {
-        if(auth()->user()->isAdmin()) {
-            return '/adminischool/dashboard';
-        } else {
+        if(auth()->user()->isAdmin()==1) {
+            return '/adminmaster/dashboard';
+        } if(auth()->user()->isAdmin()==2){
+            return '/adminschool/dashboard';
+        }else
+        {
             return '/home';
         }
     }

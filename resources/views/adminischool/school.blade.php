@@ -34,7 +34,7 @@
                                                   {{$item->name_shcool}}
                                               </td>
                                               <td>
-                                                <a href="#"  class="btn btn-info btn-sm"><i class="fas fa-info-circle"></i> ดูข้อมูล</a>
+                                                <a href="{{url('adminmaster/addschool/'.$item->id)}}"  class="btn btn-info btn-sm"><i class="fas fa-info-circle"></i> ดูข้อมูล</a>
 
                                               </td>
                                           </tr>

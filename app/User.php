@@ -43,10 +43,9 @@ class User extends Authenticatable
         return $this->where('username', $username)->first();
     }
 
-    const ADMIN_TYPE = 1;
-    const DEFAULT_TYPE = 0;
+
     public function isAdmin(){
-        return $this->type === self::ADMIN_TYPE;
+        return $this->type;
     }
 
 }

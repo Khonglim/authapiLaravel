@@ -18,7 +18,6 @@ class AdminController extends Controller
     {
         $users = DB::table('users')->find(auth()->user()->id);
         $data =array('users'=>$users,);
-
         return view('adminischool/profile',$data);
     }
 
@@ -26,9 +25,7 @@ class AdminController extends Controller
     public function user()
     {
         $users = DB::table('users')->leftJoin('role_auth', 'users.type', '=', 'role_auth.id')->get();
-
         $data =array('users'=>$users,);
-
         return view('adminischool/user',$data);
     }
 
@@ -36,13 +33,11 @@ class AdminController extends Controller
     public function school()
     {
         $name_school = DB::table('name_school')->get();
-
         $data = array('name_school' =>$name_school , );
-
         return view('adminischool/school',$data);
     }
 
-public function adduser(Request $request){
+     public function adduser(Request $request){
         $validator = Validator::make($request->input(), array(
             'name' => 'required',
             'password' => 'required|confirmed',
@@ -59,9 +54,7 @@ public function adduser(Request $request){
         }
 
         $password = Hash::make($request->password);
-
         DB::insert('insert into users (username,password,name_lastname,school,type) values ("'.$request->name.'","'.$password.'","'.$request->name_lastname.'","'.$request->school.'","'.$request->roles_id_user.'")');
-
        return response()->json(['error'=> false,], 200);
 
     }
@@ -72,6 +65,7 @@ public function adduser(Request $request){
 
 
     public function addschool(Request $request){
+
         $validator = Validator::make($request->input(), array(
             'name_shcool' => 'required',
             'address' => 'required',
@@ -89,12 +83,34 @@ public function adduser(Request $request){
         //$password = Hash::make($request->password);
 
        DB::insert('insert into name_school (name_shcool,address,email,tel) values ("'.$request->name_shcool.'","'.$request->address.'","'.$request->email.'","'.$request->tel.'")');
-
        return response()->json(['error'=> false,], 200);
 
     }
 
 
+
+    public function detlieschool($id){
+
+        $name_school = DB::table('name_school')->find($id);
+
+
+        $student_info = DB::table('student_info')->where('name_school',$name_school->id)->get();
+
+
+        $data = array('name_school' =>$name_school ,
+                      'student_info'=>$student_info
+    );
+        return view('adminischool/detlieschool',$data);
+    }
+
+
+
+
+
+    public function dashboard()
+    {
+        return view('adminschool/dashboard');
+    }
 
 
 

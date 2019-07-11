@@ -13,9 +13,13 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if( Auth::check() && Auth::user()->isAdmin() ) {
+        if( Auth::check() && Auth::user()->isAdmin()==1 ) {
             return $next($request);
-        } else {
+        } if(Auth::check() && Auth::user()->isAdmin()==2){
+
+            return $next($request);
+
+        }else {
             abort(403, 'Unauthorized action. ไม่ได้รับอณุญาติ');
         }
     }
