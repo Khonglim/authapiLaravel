@@ -31,7 +31,7 @@
                                                   #
                                               </td>
                                               <td>
-                                                  {{$item->name_shcool}}
+                                                  {{$item->name_school}}
                                               </td>
                                               <td>
                                                 <a href="{{url('adminmaster/addschool/'.$item->id)}}"  class="btn btn-info btn-sm"><i class="fas fa-info-circle"></i> ดูข้อมูล</a>

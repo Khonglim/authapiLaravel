@@ -6,7 +6,20 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-9">
-                <h4 class="m-0 text-dark">ข้อมูลโรงเรียน: {{$name_school->name_shcool}}</h4>
+                <h4 class="m-0 text-dark">ข้อมูล:
+                        @if(isset($details))
+                        {{$details->name_school}}
+
+                        @else
+                        {{$name_school->name_school}}
+                        @endif
+
+
+
+
+
+
+                </h4>
               </div><!-- /.col -->
 
             </div><!-- /.row -->
@@ -22,52 +35,45 @@
 
                 <div class="card card-primary card-outline">
                   <div class="card-body">
-                  <h5 class="card-title">รายชื่อนักเรียนทั้งหมด</h5>
 
-                    <p class="card-text">
-                      สามารถค้นหาชื่อ-นามสกุล ระดับ ชั้น ห้อง.
-                    </p>
-                    <table class="table table-bordered">
+
+
+
+                    <table class="table table-bordered" id="school-table">
                             <thead>
                               <tr>
-                                <th>#</th>
-                                <th>ชื่อ-นามสกุล</th>
+                                <th>รหัสนักเรียน</th>
+                                <th>คำนำหน้า</th>
+                                <th>ชื่อ</th>
+                                <th>นามสกุล</th>
                                 <th>ระดับการศึกษา</th>
                                 <th>ชั้น</th>
                                 <th>ห้อง</th>
                                 <th>เพิ่มเติม</th>
                               </tr>
-                           @forelse ($student_info as $item)
-                          <tr>
-                              <td>
-                                  #
-                              </td>
-                              <td> {{$item->username}} {{$item->lastname}}</td>
-                              <td></td>
-                              <td></td>
-                              <td>
-
-                              </td>
-                              <td>
-                                    <a href="#"  class="btn btn-info btn-sm"><i class="fas fa-users"></i> ดูข้อมูลนักเรียน</a>
-                                    <a href="#"  class="btn btn-warning btn-sm"><i class="far fa-edit"></i> แก้ไข</a>
-                                    <a href="#"  class="btn btn-danger btn-sm"><i class="fas fa-receipt"></i> ลบ</a>
-
-                              </td>
-                          </tr>
-                           @empty
-
-                           @endforelse
-
-
 
 
                             </thead>
-                            <tbody>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="non_searchable"></th>
+                                </tr>
+                            </tfoot>
 
-                            </tbody>
                           </table>
+                        </center>
                   </div>
+                  <div class="card-footer">
+
+
+                      </div>
                 </div><!-- /.card -->
               </div>
 
@@ -79,4 +85,52 @@
         <!-- /.content -->
       </div>
       <!-- /.content-wrapper -->
+
+
 @endsection
+
+@section('javascript')
+<script>
+        $('#school-table').DataTable({
+               processing: true,
+               serverSide: true,
+               ajax: {
+                   "url":"/dataschool/{{$name_school->id}}",
+                   "dataType":"json",
+                   "type":"POST",
+                   "data":{"_token":"<?= csrf_token() ?>"}
+               },
+               columns: [
+                   {data: 'student_code_id'},
+                   {data: 'title'},
+                   {data: 'name'},
+                   {data: 'lastname'},
+                   {data: 'name_degree'},
+                   {data: 'class'},
+                   {data: 'room'},
+                   {data:"action","searchable":false,"orderable":false}
+               ],
+               initComplete: function () {
+		            this.api().columns().every(function () {
+		                var column = this;
+		                var columnClass = column.footer().className;
+		                if(columnClass != 'non_searchable'){
+		                	var input = document.createElement("input");
+		                	$(input).appendTo($(column.footer()).empty())
+			                .on('change', function () {
+			                    column.search($(this).val(), false, false, true).draw();
+			                });
+			            }
+		            });
+		            
+		        }
+		    });
+
+
+
+
+
+
+             </script>
+@endsection
+

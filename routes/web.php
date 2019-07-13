@@ -1,5 +1,6 @@
 <?php
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,21 +30,20 @@ Route::group(['prefix' => 'adminmaster'], function(){
         Route::post('/adduser', 'admin\AdminController@adduser' );
         Route::post('/addschool', 'admin\AdminController@addschool' );
         Route::get('/addschool/{id}', 'admin\AdminController@detlieschool' );
+
+
+
     });
 
 });
 
-
+Route::post('/dataschool/{id}', 'admin\AdminController@detlieschoolData' )->name('dataschool');
 //Route for admin
 Route::group(['prefix' => 'adminschool'], function(){
     Route::group(['middleware' => ['admin']], function(){
-        Route::get('/dashboard', 'admin\AdminController@dashboard');
-        Route::get('/profile', 'admin\AdminController@profile');
-        Route::get('/user', 'admin\AdminController@user');
-        Route::get('/school', 'admin\AdminController@school');
-        Route::post('/adduser', 'admin\AdminController@adduser' );
-        Route::post('/addschool', 'admin\AdminController@addschool' );
-        Route::get('/addschool/{id}', 'admin\AdminController@detlieschool' );
+        Route::get('/dashboard', 'admin\AdminController@admindashboard');
+        Route::get('/profile', 'admin\AdminController@adminprofile');
+        Route::get('/school', 'admin\AdminController@adminschool');
     });
 
 });
