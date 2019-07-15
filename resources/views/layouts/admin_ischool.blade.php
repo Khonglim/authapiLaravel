@@ -234,6 +234,13 @@
 <!-- page script -->
 <script src="{{ asset('js/manageAll.js') }}"></script>
 @yield('javascript')
+
+
+
+
+
+
+
      </body>
 </html>
 

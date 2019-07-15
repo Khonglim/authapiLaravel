@@ -89,3 +89,45 @@ function addTaskFormSchool() {
         $('#modal-addSchool').modal('show');
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function addTaskFormDetlieStu() {
+    $(document).ready(function() {
+        $("#add-error-DetlieStu").hide();
+        $('#modal-DetlieStu').modal('show');
+    });
+}
+
+
+function addTaskFormDeletStu() {
+    $(document).ready(function() {
+        $("#add-error-bag").hide();
+        $('#modal-DeletStu').modal('show');
+    });
+}

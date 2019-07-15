@@ -27,9 +27,14 @@ Route::group(['prefix' => 'adminmaster'], function(){
         Route::get('/profile', 'admin\AdminController@profile');
         Route::get('/user', 'admin\AdminController@user');
         Route::get('/school', 'admin\AdminController@school');
+        Route::get('/addschool/{id}', 'admin\AdminController@detlieschool' );
+        Route::get('/editstu/{id}', 'admin\AdminController@editstudent' );
         Route::post('/adduser', 'admin\AdminController@adduser' );
         Route::post('/addschool', 'admin\AdminController@addschool' );
-        Route::get('/addschool/{id}', 'admin\AdminController@detlieschool' );
+        Route::post('/saveeditstudent', 'admin\AdminController@saveeditstudent' );
+        Route::get('/dlestudent', 'admin\AdminController@dlestudent' );
+
+        Route::get('/addschool', 'admin\AdminController@detlieschool' );
 
 
 
