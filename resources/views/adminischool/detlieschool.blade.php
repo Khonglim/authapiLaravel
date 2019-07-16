@@ -155,6 +155,127 @@
                       </div>
                     </div>
                   </div>
+
+                  สิทธิ์ผู้ใช้ผู้ปกครอง
+                  <div class="row">
+                        <div class="col-lg-12">
+                          <div class="card card-primary card-outline">
+                            <div class="card-body">
+
+                                    <a onclick="event.preventDefault();addParent();" href="#" class="btn btn-info" data-toggle="modal"> <span>เพิ่มชื่อผู้ปกครอง</span></a>
+                                    <div class="modal fade" id="modal-addParent">
+                                            <div class="modal-dialog modal-lg">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h4 class="modal-title">เพิ่มชื่อผู้ปกครอง</h4>
+                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="frmaddParent">
+                                                            <div id="add-error-bag2" class="alert alert-danger">
+                                                                    <ul id="add-task-errors2">
+                                                                    </ul>
+                                                                </div>
+                                                        <div class="row">
+                                                                <div class="col-12 col-md-4">
+                                                            <div class="form-group">
+                                                              <label  class="col-md-12 col-sm-5 control-label" >ชื่อผู้ใช้:</label>
+                                                              <input id="username" type="text" class="form-control" name="name">
+                                                            </div>
+                                                            </div>
+                                                             <div class="col-12 col-md-4">
+                                                               <div class="form-group">
+                                                                    <label for="inputPassword3" class="col-md-12 col-sm-5 control-label">รหัสผ่าน:</label>
+                                                                    <input id="password" type="password" class="form-control" name="password">
+                                                                </div>
+                                                             </div>
+                                                             <div class="col-12 col-md-4">
+                                                                <div class="form-group">
+                                                                     <label  class="col-md-12 col-sm-12 control-label">ยืนยันรหัสผ่าน:</label>
+                                                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" >
+                                                                </div>
+                                                            </div>
+                                                      </div>
+                                                      <div class="row">
+                                                            <div class="col-12 col-md-4">
+                                                                    <div class="form-group">
+                                                                         <label  class="col-md-12 col-sm-12 control-label">ชื่อ-นามสกุล:</label>
+                                                                        <input id="name_lastname" type="text" class="form-control" name="name_lastname" >
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 col-md-4">
+                                                                        <div class="form-group">
+                                                                             <label  class="col-md-12 col-sm-12 control-label">ผู้ปกครองของรหัสนักเรียน:</label>
+                                                                            <input id="student_code" type="text" class="form-control" name="student_code" >
+                                                                  </div>
+                                                             </div>
+
+                                                      </div>
+
+                                                          <input type="hidden" name="school"  value="{{$name_school->id}}">
+                                                          <input type="hidden" name="type"  value="3">
+                                                        </form>
+                                                </div>
+                                                <div class="modal-footer justify-content-between">
+                                                  <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+                                                  <button type="button" class="btn btn-primary" id="btn-addParent"   >บันทึก</button>
+                                                </div>
+                                              </div>
+                                              <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                          </div>
+
+
+
+
+
+                                    <br><br>
+                                    <div class="table-responsive">
+                              <table class="table table-bordered table-sm" id="table-parent">
+                                      <thead>
+                                        <tr>
+                                          <th>ชื่อผู้ใช้</th>
+                                          <th>ชื่อ-นามสกุล</th>
+                                          <th>ผู้ปกครองของรหัสนักเรียน</th>
+                                          <th>เพิ่มเติม</th>
+                                        </tr>
+                                      </thead>
+                                    </table>
+                              </div>
+                            </div>
+                            <div class="card-footer"></div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           </div>
         </div>
       </div>
@@ -204,8 +325,22 @@
 
 
 
-
-
+            $('#table-parent').DataTable({
+               processing: true,
+               serverSide: true,
+               ajax: {
+                   "url":"/showParent/{{$name_school->id}}",
+                   "dataType":"json",
+                   "type":"POST",
+                   "data":{"_token":"<?= csrf_token() ?>"}
+               },
+               columns: [
+                   {data: 'username'},
+                   {data: 'name_lastname'},
+                   {data: 'student_code'},
+                   {data:"action","searchable":false,"orderable":false}
+               ]
+		    });
 
 
 

@@ -188,3 +188,54 @@ $(document).ready(function() {
         });
     });
 });
+
+
+
+
+
+
+function addParent() {
+    $(document).ready(function() {
+        $("#add-error-bag2").hide();
+        $('#modal-addParent').modal('show');
+    });
+}
+
+$(document).ready(function() {
+    $("#btn-addParent").click(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '/parent',
+            data: {
+                name: $("#frmaddParent input[name=name]").val(),
+                password: $("#frmaddParent input[name=password]").val(),
+                password_confirmation: $("#frmaddParent input[name=password_confirmation]").val(),
+                name_lastname: $("#frmaddParent input[name=name_lastname]").val(),
+                student_code: $("#frmaddParent input[name=student_code]").val(),
+                school: $("#frmaddParent input[name=school]").val(),
+                type: $("#frmaddParent input[name=type]").val(),
+            },
+
+            dataType: 'json',
+            success: function(data) {
+
+                swal.fire("บันทึกสำเร็จ!", "", "success").then(function(){
+                    location.reload();
+                });
+            },
+            error: function(data) {
+                var errors = $.parseJSON(data.responseText);
+                $('#add-task-errors2').html('');
+                $.each(errors.messages, function(key, value) {
+                    $('#add-task-errors2').append('<li>' + value + '</li>');
+                });
+                $("#add-error-bag2").show();
+            }
+        });
+    });
+});

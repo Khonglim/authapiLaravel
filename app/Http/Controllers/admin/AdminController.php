@@ -368,6 +368,7 @@ class AdminController extends Controller
         $name_school = DB::table('name_school')->find($id);
         $users = DB::table('users')
         ->where('school',$name_school->id)
+        ->where('type','4')
         ->get();
         return Datatables::of($users)->addColumn('action', function ($users) {
             return '<div class="btn-group">
@@ -486,6 +487,149 @@ class AdminController extends Controller
                   return redirect('/adminmaster/addschool/'.$request->school);
 
     }
+
+
+    public function parent(Request $request ){
+        $validator = Validator::make($request->input(), array(
+            'name' => 'required',
+            'password' => 'required|confirmed',
+            'name_lastname' => 'required',
+            'student_code' => 'required',
+
+        ));
+        if ($validator->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
+        $password = Hash::make($request->password);
+        DB::insert('insert into users (username,password,name_lastname,school,type,student_code) values
+        ("'.$request->name.'","'.$password.'","'.$request->name_lastname.'","'.$request->school.'","'.$request->type.'","'.$request->student_code.'")');
+       return response()->json(['error'=> false,], 200);
+
+
+
+
+    }
+
+
+    public function showParent($id){
+        $name_school = DB::table('name_school')->find($id);
+        $users = DB::table('users')
+        ->where('school',$name_school->id)
+        ->where('type','3')
+        ->get();
+        return Datatables::of($users)->addColumn('action', function ($users) {
+            return '<div class="btn-group">
+            <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
+              <span class="caret">ตัวเลือก</span>
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item"  href="/adminmaster/editstc/'.$users->id.'" >แก้ไข</a>
+              <a class="dropdown-item"  data-toggle="modal"    data-target="#modal-DeletTc'.$users->id.'">ลบ</a>
+              <a class="dropdown-item"  data-toggle="modal"    data-target="#modal-resetpass'.$users->id.'">รีเซ็ตรหัสผ่าน</a>
+
+              </div>
+              <div class="modal fade" id="modal-DeletTc'.$users->id.'">
+              <div class="modal-dialog modal-xs">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">ยืนยันการลบ</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form action="/adminmaster/dlestc"  method="get">
+
+                  <div class="modal-body">
+
+                  <input type="hidden" name="school" value="'.$users->school.'">
+                  <input type="hidden" name="id" value="'.$users->id.'">
+                  ยืนยันการลบข้อมูล  '.$users->name_lastname.'
+
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                    <button type="submit" class="btn btn-info  float-right">ยืนยัน</button>
+                  </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="modal-resetpass'.$users->id.'">
+            <div class="modal-dialog modal-xs">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">ยืนยันการรีเซ็รหัสผ่าน</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="/adminmaster/resetpass"  method="get">
+
+                <div class="modal-body">
+
+                <input type="hidden" name="school" value="'.$users->school.'">
+                <input type="hidden" name="id" value="'.$users->id.'">
+                ยืนยันการรีเซ็รหัสผ่าน '.$users->name_lastname.' รหัสผ่านเริ่มต้น 123456
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                  <button type="submit" class="btn btn-info  float-right">ยืนยัน</button>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+              '
+        ;})->make();
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

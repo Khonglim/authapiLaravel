@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Input;
 Auth::routes();
 
 //Route for normal user
+//Route for normal user
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index');
 });
@@ -33,14 +34,13 @@ Route::group(['prefix' => 'adminmaster'], function(){
         Route::get('/dlestudent', 'admin\AdminController@dlestudent' );
         Route::get('/addschool', 'admin\AdminController@detlieschool' );
         Route::get('/dlestc', 'admin\AdminController@dletc' );
-
-
+        Route::get('/resetpass', 'admin\AdminController@resetpass' );
 
         Route::post('/adduser', 'admin\AdminController@adduser' );
         Route::post('/addschool', 'admin\AdminController@addschool' );
         Route::post('/saveeditstudent', 'admin\AdminController@saveeditstudent' );
         Route::post('/saveedittc', 'admin\AdminController@saveedittc' );
-        Route::get('/resetpass', 'admin\AdminController@resetpass' );
+
 
 
     });
@@ -48,11 +48,11 @@ Route::group(['prefix' => 'adminmaster'], function(){
 });
 
 
-
+Route::post('/parent', 'admin\AdminController@parent' );
 Route::post('/addtc', 'admin\AdminController@addtc' );
 Route::post('/dataschool/{id}', 'admin\AdminController@detlieschoolData' )->name('dataschool');
 Route::post('/showTeacher/{id}', 'admin\AdminController@showTeacher' );
-
+Route::post('/showParent/{id}', 'admin\AdminController@showParent' );
 
 
 

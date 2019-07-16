@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     $user = $request->user();
-    $data= DB::table('student_info')->where('student_code',$user->student_code)->get();
+    $data= DB::table('student_information')->where('student_code_id',$user->student_code)->get();
     return response()->json($data);
 });
 
