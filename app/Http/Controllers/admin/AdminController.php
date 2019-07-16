@@ -337,7 +337,27 @@ class AdminController extends Controller
 
 
 
+    public function addtc(Request $request ){
+        $validator = Validator::make($request->input(), array(
+            'username' => 'required',
+            'password' => 'required|confirmed',
+            'name_lastname' => 'required',
+            'degree' => 'required',
+            'school' => 'required',
+            'type' => 'required',
+        ));
+        if ($validator->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
 
+
+
+
+
+    }
 
 
 

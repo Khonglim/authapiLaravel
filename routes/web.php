@@ -33,7 +33,6 @@ Route::group(['prefix' => 'adminmaster'], function(){
         Route::post('/addschool', 'admin\AdminController@addschool' );
         Route::post('/saveeditstudent', 'admin\AdminController@saveeditstudent' );
         Route::get('/dlestudent', 'admin\AdminController@dlestudent' );
-
         Route::get('/addschool', 'admin\AdminController@detlieschool' );
 
 
@@ -41,7 +40,7 @@ Route::group(['prefix' => 'adminmaster'], function(){
     });
 
 });
-
+Route::post('/addtc', 'admin\AdminController@addtc' );
 Route::post('/dataschool/{id}', 'admin\AdminController@detlieschoolData' )->name('dataschool');
 //Route for admin
 Route::group(['prefix' => 'adminschool'], function(){

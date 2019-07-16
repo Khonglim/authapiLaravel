@@ -131,3 +131,57 @@ function addTaskFormDeletStu() {
         $('#modal-DeletStu').modal('show');
     });
 }
+
+
+
+
+
+
+
+function addTaskFormTc() {
+    $(document).ready(function() {
+        $("#add-error-bag").hide();
+        $('#modal-addTeacher').modal('show');
+    });
+}
+
+
+
+
+$(document).ready(function() {
+    $("#btn-addTc").click(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '/addtc',
+            data: {
+                username: $("#frmAddTc input[name=username]").val(),
+                password: $("#frmAddTc input[name=password]").val(),
+                name_lastname: $("#frmAddTc textarea[name=name_lastname]").val(),
+                degree: $("#frmAddTc textarea[name=degree]").val(),
+                school: $("#frmAddTc textarea[name=school]").val(),
+                type: $("#frmAddTc textarea[name=type]").val(),
+
+            },
+
+            dataType: 'json',
+            success: function(data) {
+
+                alert("สำเร็จ!!");
+
+            },
+            error: function(data) {
+                var errors = $.parseJSON(data.responseText);
+                $('#add-task-errors').html('');
+                $.each(errors.messages, function(key, value) {
+                    $('#add-task-errors').append('<li>' + value + '</li>');
+                });
+                $("#add-error-bag").show();
+            }
+        });
+    });
+});
