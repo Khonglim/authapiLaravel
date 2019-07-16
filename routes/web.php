@@ -29,19 +29,42 @@ Route::group(['prefix' => 'adminmaster'], function(){
         Route::get('/school', 'admin\AdminController@school');
         Route::get('/addschool/{id}', 'admin\AdminController@detlieschool' );
         Route::get('/editstu/{id}', 'admin\AdminController@editstudent' );
+        Route::get('/editstc/{id}', 'admin\AdminController@editstc' );
+        Route::get('/dlestudent', 'admin\AdminController@dlestudent' );
+        Route::get('/addschool', 'admin\AdminController@detlieschool' );
+        Route::get('/dlestc', 'admin\AdminController@dletc' );
+
+
+
         Route::post('/adduser', 'admin\AdminController@adduser' );
         Route::post('/addschool', 'admin\AdminController@addschool' );
         Route::post('/saveeditstudent', 'admin\AdminController@saveeditstudent' );
-        Route::get('/dlestudent', 'admin\AdminController@dlestudent' );
-        Route::get('/addschool', 'admin\AdminController@detlieschool' );
-
+        Route::post('/saveedittc', 'admin\AdminController@saveedittc' );
+        Route::get('/resetpass', 'admin\AdminController@resetpass' );
 
 
     });
 
 });
+
+
+
 Route::post('/addtc', 'admin\AdminController@addtc' );
 Route::post('/dataschool/{id}', 'admin\AdminController@detlieschoolData' )->name('dataschool');
+Route::post('/showTeacher/{id}', 'admin\AdminController@showTeacher' );
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Route for admin
 Route::group(['prefix' => 'adminschool'], function(){
     Route::group(['middleware' => ['admin']], function(){

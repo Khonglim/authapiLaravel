@@ -288,7 +288,8 @@ class AdminController extends Controller
         </form>
       </div>
     </div>
-  </div> </div>'
+  </div>
+  </div>'
         ;})->make();
     }
 
@@ -339,12 +340,11 @@ class AdminController extends Controller
 
     public function addtc(Request $request ){
         $validator = Validator::make($request->input(), array(
-            'username' => 'required',
+            'name' => 'required',
             'password' => 'required|confirmed',
             'name_lastname' => 'required',
             'degree' => 'required',
-            'school' => 'required',
-            'type' => 'required',
+            'room' => 'required',
         ));
         if ($validator->fails()) {
             return response()->json([
@@ -352,6 +352,10 @@ class AdminController extends Controller
                 'messages' => $validator->errors(),
             ], 422);
         }
+        $password = Hash::make($request->password);
+        DB::insert('insert into users (username,password,name_lastname,school,type,degree,room) values
+        ("'.$request->name.'","'.$password.'","'.$request->name_lastname.'","'.$request->school.'","'.$request->type.'","'.$request->degree.'","'.$request->room.'")');
+       return response()->json(['error'=> false,], 200);
 
 
 
@@ -359,16 +363,129 @@ class AdminController extends Controller
 
     }
 
+    public function showTeacher($id)
+    {
+        $name_school = DB::table('name_school')->find($id);
+        $users = DB::table('users')
+        ->where('school',$name_school->id)
+        ->get();
+        return Datatables::of($users)->addColumn('action', function ($users) {
+            return '<div class="btn-group">
+            <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
+              <span class="caret">ตัวเลือก</span>
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item"  href="/adminmaster/editstc/'.$users->id.'" >แก้ไข</a>
+              <a class="dropdown-item"  data-toggle="modal"    data-target="#modal-DeletTc'.$users->id.'">ลบ</a>
+              <a class="dropdown-item"  data-toggle="modal"    data-target="#modal-resetpass'.$users->id.'">รีเซ็ตรหัสผ่าน</a>
+
+              </div>
+              <div class="modal fade" id="modal-DeletTc'.$users->id.'">
+              <div class="modal-dialog modal-xs">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">ยืนยันการลบ</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form action="/adminmaster/dlestc"  method="get">
+
+                  <div class="modal-body">
+
+                  <input type="hidden" name="school" value="'.$users->school.'">
+                  <input type="hidden" name="id" value="'.$users->id.'">
+                  ยืนยันการลบข้อมูล  '.$users->name_lastname.'
+
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                    <button type="submit" class="btn btn-info  float-right">ยืนยัน</button>
+                  </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="modal-resetpass'.$users->id.'">
+            <div class="modal-dialog modal-xs">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">ยืนยันการรีเซ็รหัสผ่าน</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="/adminmaster/resetpass"  method="get">
+
+                <div class="modal-body">
+
+                <input type="hidden" name="school" value="'.$users->school.'">
+                <input type="hidden" name="id" value="'.$users->id.'">
+                ยืนยันการรีเซ็รหัสผ่าน '.$users->name_lastname.' รหัสผ่านเริ่มต้น 123456
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                  <button type="submit" class="btn btn-info  float-right">ยืนยัน</button>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+              '
+        ;})->make();
+    }
+
+    public function editstc($id){
+        $user = DB::table('users')->find($id);
+            $data = array('user'=>$user);
+            return view('adminischool/edittc',$data);
+    }
 
 
 
+    public function saveedittc(Request $request){
 
 
+        $request->validate([
+            'name' => 'required',
+            'name_lastname' => 'required',
+            'degree' => 'required',
+            'room' => 'required',
+        ]);
+        $password = Hash::make($request->password);
+        DB::table('users')->where('id', $request->id)
+        ->update(['username' => $request->name ,
+
+                  'name_lastname' => $request->name_lastname,
+                  'degree' => $request->degree,
+                  'room' => $request->room,
+                  ]);
+                  Session::flash('flash_message','บันทึกข้อมูลสำเร็จ!! ');
+                  return redirect('/adminmaster/editstc/'.$request->id);
+
+    }
 
 
+    public function dletc(Request $request ){
 
+        DB::table('users')->where('id', '=',$request->id)->delete();
+        Session::flash('flash_message','ลบข้อมูลชั้นสำเร็จ!! ');
+        return redirect('/adminmaster/addschool/'.$request->school);
 
+    }
+    public function resetpass(Request $request ){
 
+        $password = Hash::make("123456");
+        DB::table('users')->where('id', $request->id)
+        ->update(['password' => $password
+                  ]);
+                  Session::flash('flash_message','รีเซ็ตรหัสสำเร็จ!! ');
+                  return redirect('/adminmaster/addschool/'.$request->school);
+
+    }
 
 
 

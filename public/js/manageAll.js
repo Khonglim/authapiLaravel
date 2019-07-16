@@ -159,20 +159,23 @@ $(document).ready(function() {
             type: 'POST',
             url: '/addtc',
             data: {
-                username: $("#frmAddTc input[name=username]").val(),
+                name: $("#frmAddTc input[name=name]").val(),
                 password: $("#frmAddTc input[name=password]").val(),
-                name_lastname: $("#frmAddTc textarea[name=name_lastname]").val(),
-                degree: $("#frmAddTc textarea[name=degree]").val(),
-                school: $("#frmAddTc textarea[name=school]").val(),
-                type: $("#frmAddTc textarea[name=type]").val(),
+                password_confirmation: $("#frmAddTc input[name=password_confirmation]").val(),
+                name_lastname: $("#frmAddTc input[name=name_lastname]").val(),
+                degree: $("#frmAddTc input[name=degree]").val(),
+                room: $("#frmAddTc input[name=room]").val(),
+                school: $("#frmAddTc input[name=school]").val(),
+                type: $("#frmAddTc input[name=type]").val(),
 
             },
 
             dataType: 'json',
             success: function(data) {
 
-                alert("สำเร็จ!!");
-
+                swal.fire("บันทึกสำเร็จ!", "", "success").then(function(){
+                    location.reload();
+                });
             },
             error: function(data) {
                 var errors = $.parseJSON(data.responseText);

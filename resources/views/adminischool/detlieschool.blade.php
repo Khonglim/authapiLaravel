@@ -81,7 +81,7 @@
                                                             <div class="col-12 col-md-4">
                                                         <div class="form-group">
                                                           <label  class="col-md-12 col-sm-5 control-label" >ชื่อผู้ใช้:</label>
-                                                          <input id="username" type="text" class="form-control" name="username">
+                                                          <input id="username" type="text" class="form-control" name="name">
                                                         </div>
                                                         </div>
                                                          <div class="col-12 col-md-4">
@@ -93,7 +93,7 @@
                                                          <div class="col-12 col-md-4">
                                                             <div class="form-group">
                                                                  <label  class="col-md-12 col-sm-12 control-label">ยืนยันรหัสผ่าน:</label>
-                                                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" >
                                                             </div>
                                                         </div>
                                                   </div>
@@ -138,7 +138,7 @@
 
                                 <br><br>
                                 <div class="table-responsive">
-                          <table class="table table-bordered table-sm" id="">
+                          <table class="table table-bordered table-sm" id="Teacher-table">
                                   <thead>
                                     <tr>
                                       <th>ชื่อผู้ใช้</th>
@@ -181,7 +181,39 @@
                    {data: 'room'},
                    {data:"action","searchable":false,"orderable":false}
                ]
+            });
+
+
+            $('#Teacher-table').DataTable({
+               processing: true,
+               serverSide: true,
+               ajax: {
+                   "url":"/showTeacher/{{$name_school->id}}",
+                   "dataType":"json",
+                   "type":"POST",
+                   "data":{"_token":"<?= csrf_token() ?>"}
+               },
+               columns: [
+                   {data: 'username'},
+                   {data: 'name_lastname'},
+                   {data: 'degree'},
+                   {data: 'room'},
+                   {data:"action","searchable":false,"orderable":false}
+               ]
 		    });
+
+
+
+
+
+
+
+
+
+
+
+
+
              </script>
 @endsection
 

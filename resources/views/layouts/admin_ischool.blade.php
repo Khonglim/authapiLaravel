@@ -233,6 +233,7 @@
 <script src="{{asset("adminLTE/dist/js/demo.js")}}"></script>
 <!-- page script -->
 <script src="{{ asset('js/manageAll.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 @yield('javascript')
 
 
