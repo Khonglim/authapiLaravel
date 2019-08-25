@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('school')->nullable();
             $table->string('degree')->nullable();
             $table->string('room')->nullable();
-            $table->boolean('type')->default(0);
+            $table->integer('type')->default(0);
             $table->rememberToken();
             $table->dateTime('created_by')->nullable();
             $table->dateTime('update_by')->nullable();
