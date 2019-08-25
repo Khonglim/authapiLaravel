@@ -35,14 +35,10 @@ Route::group(['prefix' => 'adminmaster'], function(){
         Route::get('/addschool', 'admin\AdminController@detlieschool' );
         Route::get('/dlestc', 'admin\AdminController@dletc' );
         Route::get('/resetpass', 'admin\AdminController@resetpass' );
-
         Route::post('/adduser', 'admin\AdminController@adduser' );
         Route::post('/addschool', 'admin\AdminController@addschool' );
         Route::post('/saveeditstudent', 'admin\AdminController@saveeditstudent' );
         Route::post('/saveedittc', 'admin\AdminController@saveedittc' );
-
-
-
     });
 
 });
@@ -65,7 +61,7 @@ Route::post('/showParent/{id}', 'admin\AdminController@showParent' );
 
 
 
-//Route for admin
+//Route for adminschool
 Route::group(['prefix' => 'adminschool'], function(){
     Route::group(['middleware' => ['admin']], function(){
         Route::get('/dashboard', 'admin\AdminController@admindashboard');
