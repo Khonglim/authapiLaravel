@@ -17,8 +17,9 @@ class CreateAlfNameSchoolTable extends Migration
             $table->bigIncrements('id');
             $table->string('name_school')->nullable();
             $table->string('address',500)->nullable();
+            $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->nullable()->default('Y');
             $table->dateTime('created_by')->nullable();
             $table->dateTime('update_by')->nullable();
             $table->timestamps();

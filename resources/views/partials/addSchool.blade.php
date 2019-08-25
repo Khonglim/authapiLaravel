@@ -19,7 +19,7 @@
                             <div class="col-12 col-md-4">
                         <div class="form-group">
                           <label  class="col-md-12 col-sm-5 control-label" >ชื่อโรงเรียน:</label>
-                          <input id="name_shcool" type="text" class="form-control"  name="name_shcool" >
+                          <input id="name_school" type="text" class="form-control"  name="name_school" >
                         </div>
                         </div>
                          <div class="col-12 col-md-4">

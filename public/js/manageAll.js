@@ -59,7 +59,7 @@ $(document).ready(function() {
             type: 'POST',
             url: 'addschool',
             data: {
-                name_shcool: $("#frmAddSchool input[name=name_shcool]").val(),
+                name_school: $("#frmAddSchool input[name=name_school]").val(),
                 email: $("#frmAddSchool input[name=email]").val(),
                 tel: $("#frmAddSchool input[name=tel]").val(),
                 address: $("#frmAddSchool textarea[name=address]").val(),

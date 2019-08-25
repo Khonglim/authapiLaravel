@@ -16,7 +16,7 @@ class CreateAlfStatusAppTable extends Migration
         Schema::create('alf_status_app', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('status_app')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->nullable()->default('Y');
             $table->dateTime('created_by')->nullable();
             $table->dateTime('update_by')->nullable();
             $table->timestamps();

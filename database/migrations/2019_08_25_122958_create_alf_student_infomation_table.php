@@ -35,7 +35,7 @@ class CreateAlfStudentInfomationTable extends Migration
             $table->string('mom')->nullable();
             $table->string('mom_tel')->nullable();
             $table->string('father_tel')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->nullable()->default('Y');
             $table->dateTime('created_by')->nullable();
             $table->dateTime('update_by')->nullable();
             $table->timestamps();

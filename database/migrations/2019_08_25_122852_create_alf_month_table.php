@@ -16,7 +16,7 @@ class CreateAlfMonthTable extends Migration
         Schema::create('alf_month', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name_month')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->nullable()->default('Y');
             $table->dateTime('created_by')->nullable();
             $table->dateTime('update_by')->nullable();
             $table->timestamps();

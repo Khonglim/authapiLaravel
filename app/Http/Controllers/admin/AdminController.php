@@ -27,7 +27,7 @@ class AdminController extends Controller
 
     public function user()
     {
-        $users = DB::table('users')->leftJoin('role_auth', 'users.type', '=', 'role_auth.id')->get();
+        $users = DB::table('users')->leftJoin('alf_role_auth', 'users.type', '=', 'alf_role_auth.id')->get();
         $data =array('users'=>$users,);
         return view('adminischool/user',$data);
     }
@@ -35,7 +35,7 @@ class AdminController extends Controller
 
     public function school()
     {
-        $name_school = DB::table('name_school')->get();
+        $name_school = DB::table('alf_name_school')->get();
         $data = array('name_school' =>$name_school , );
         return view('adminischool/school',$data);
     }
@@ -57,7 +57,18 @@ class AdminController extends Controller
         }
 
         $password = Hash::make($request->password);
-        DB::insert('insert into users (username,password,name_lastname,school,type) values ("'.$request->name.'","'.$password.'","'.$request->name_lastname.'","'.$request->school.'","'.$request->roles_id_user.'")');
+        DB::table('users')->insert(
+            ['username' => $request->name,
+            'password' => $password,
+            'name_lastname' => $request->name_lastname,
+            'school' => $request->school,
+            'type' => $request->roles_id_user,
+
+            ]
+        );
+
+
+       
        return response()->json(['error'=> false,], 200);
 
     }
@@ -70,7 +81,7 @@ class AdminController extends Controller
     public function addschool(Request $request){
 
         $validator = Validator::make($request->input(), array(
-            'name_shcool' => 'required',
+            'name_school' => 'required',
             'address' => 'required',
             'email' => 'required',
             'tel' => 'required',
@@ -84,20 +95,28 @@ class AdminController extends Controller
         }
 
         //$password = Hash::make($request->password);
+        DB::table('alf_name_school')->insert(
+            ['name_school' => $request->name_school,
+            'address' => $request->address,
+            'email' => $request->email,
+            'phone' => $request->tel
+            ]
+        );
 
-       DB::insert('insert into name_school (name_shcool,address,email,tel) values ("'.$request->name_shcool.'","'.$request->address.'","'.$request->email.'","'.$request->tel.'")');
+
+
        return response()->json(['error'=> false,], 200);
 
     }
     public function detlieschool($id){
-        $name_school = DB::table('name_school')->find($id);
+        $name_school = DB::table('alf_name_school')->find($id);
         $data =array('name_school'=>$name_school,);
         return view('adminischool/detlieschool', $data);
     }
 
     public function detlieschoolData($id){
-        $name_school = DB::table('name_school')->find($id);
-        $studentInfo = DB::table('student_information')
+        $name_school = DB::table('alf_name_school')->find($id);
+        $studentInfo = DB::table('alf_student_infomation')
         ->where('name_school',$name_school->id)
         ->get();
         return Datatables::of($studentInfo)->addColumn('action', function ($studentInfo) {
@@ -295,7 +314,7 @@ class AdminController extends Controller
 
 
     public function editstudent($id){
-        $studentInfo = DB::table('student_information')->find($id);
+        $studentInfo = DB::table('alf_student_infomation')->find($id);
         $name_school = DB::table('name_school')->find($studentInfo->name_school);
         $data = array('studentInfo'=>$studentInfo,
         'name_school'=>$name_school);
@@ -305,7 +324,7 @@ class AdminController extends Controller
 
     public function dlestudent(Request $request ){
 
-        DB::table('student_information')->where('id', '=',$request->id)->delete();
+        DB::table('alf_student_infomation')->where('id', '=',$request->id)->delete();
         Session::flash('flash_message','ลบข้อมูลชั้นสำเร็จ!! ');
         return redirect('/adminmaster/addschool/'.$request->school);
 
@@ -313,7 +332,7 @@ class AdminController extends Controller
 
 
     public function saveeditstudent(Request $request){
-        DB::table('student_information')->where('id', $request->id)
+        DB::table('alf_student_infomation')->where('id', $request->id)
         ->update(['student_code_id' => $request->student_code_id ,
                   'name' => $request->name,
                   'lastname' => $request->lastname,
@@ -365,7 +384,7 @@ class AdminController extends Controller
 
     public function showTeacher($id)
     {
-        $name_school = DB::table('name_school')->find($id);
+        $name_school = DB::table('alf_name_school')->find($id);
         $users = DB::table('users')
         ->where('school',$name_school->id)
         ->where('type','4')
@@ -504,18 +523,21 @@ class AdminController extends Controller
             ], 422);
         }
         $password = Hash::make($request->password);
-        DB::insert('insert into users (username,password,name_lastname,school,type,student_code) values
-        ("'.$request->name.'","'.$password.'","'.$request->name_lastname.'","'.$request->school.'","'.$request->type.'","'.$request->student_code.'")');
+        DB::table('users')->insert(
+            ['username' => $request->username,
+            'password' => $password,
+            'name_lastname' => $request->name_lastname,
+            'school' => $request->school,
+            'type' => $request->type,
+            'student_code' => $request->student_code
+            ]
+        );
        return response()->json(['error'=> false,], 200);
-
-
-
-
     }
 
 
     public function showParent($id){
-        $name_school = DB::table('name_school')->find($id);
+        $name_school = DB::table('alf_name_school')->find($id);
         $users = DB::table('users')
         ->where('school',$name_school->id)
         ->where('type','3')

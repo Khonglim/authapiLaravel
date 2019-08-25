@@ -16,7 +16,7 @@ class CreateAlfRoleAuthTable extends Migration
         Schema::create('alf_role_auth', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name_auth')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->nullable()->default('Y');
             $table->dateTime('created_by')->nullable();
             $table->dateTime('update_by')->nullable();
             $table->timestamps();
