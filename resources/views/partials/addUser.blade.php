@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">เพิ่มผู้ดูแลระบบ/โรงเรียน</h4>
+          <h4 class="modal-title">เพิ่มผู้ดูแลระบบ/โรงเรียน/แก้ไข</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -17,13 +17,13 @@
                         <div class="col-12 col-md-4">
                     <div class="form-group">
                       <label  class="col-md-12 col-sm-5 control-label" >ชื่อผู้ใช้:</label>
-                      <input id="name" type="text" class="form-control"  name="name" >
+                      <input id="name" type="text" class="form-control"  name="name" id="name" >
                     </div>
                     </div>
                      <div class="col-12 col-md-4">
                        <div class="form-group">
                             <label for="inputPassword3" class="col-md-12 col-sm-5 control-label">รหัสผ่าน:</label>
-                            <input id="password" type="password" class="form-control"  name="password" >
+                            <input id="password" type="password" class="form-control"  name="password"  id="password">
                         </div>
                      </div>
                      <div class="col-12 col-md-4">
@@ -37,19 +37,19 @@
                     <div class="col-12 col-md-4">
                             <div class="form-group">
                                  <label  class="col-md-12 col-sm-12 control-label">ชื่อ-นามสกุล:</label>
-                                <input id="password-confirm" type="text" class="form-control" name="name_lastname" >
+                                <input id="password-confirm" type="text" class="form-control" name="name_lastname" id="name_lastname" >
                             </div>
                         </div>
                         <div class="col-12 col-md-4">
                                 <div class="form-group">
                                      <label  class="col-md-12 col-sm-12 control-label">โรงเรียน:</label>
-                                    <input id="password-confirm" type="text" class="form-control" name="school" required autocomplete="new-password">
+                                    <input id="password-confirm" type="text" class="form-control" name="school" id="school">
                           </div>
                      </div>
                      <div class="col-12 col-md-4">
                             <div class="form-group">
                                  <label  class="col-md-12 col-sm-12 control-label">สิทธิ์การใช้งาน:</label>
-                                 <select class="form-control" name="roles_id_user">
+                                 <select class="form-control" name="roles_id_user"  id="roles_id_user">
                                         <option>เลือก</option>
                                         <option value="1" >สิทธิ์ดูแลระบบ i school tec</option>
                                         <option value="2" >สิทธิ์ดูแลโรงเรียน</option>

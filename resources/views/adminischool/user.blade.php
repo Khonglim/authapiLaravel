@@ -18,39 +18,31 @@
                               <h3 class="card-title">การจัดการสิทธิ์ผู้ใช้</h3>
                             </div>
                               <div class="card-body">
-                                    <table class="table table-striped">
+                                    <table    class="table table-striped data-Usertable">
                                             <thead>
                                               <tr>
-                                                <th>#</th>
+                                              
                                                 <th>ชื่อผู้ใช้</th>
                                                 <th>สิทธิ์การเข้าถึง</th>
                                                 <th>เพิ่มเติม</th>
                                               </tr>
                                             </thead>
                                             <tbody>
-                                             @foreach ($users as $item)
-                                                <tr>
-                                                    <td></td>
-                                                <td>{{$item->username}}</td>
-                                                <td>{{$item->name_auth}}</td>
-                                                <td>*</td>
-                                                </tr>
-                                             @endforeach
+
                                             </tbody>
                                           </table>
                               </div>
                               <div class="card-footer">
 
                                 <a onclick="event.preventDefault();addTaskFormUser();" href="#" class="btn btn-info" data-toggle="modal"> <span>เพิ่มผู้ดูแลระบบ/โรงเรียน</span></a>
-                                @include('partials.addUser')  </p>
-
+                                @include('partials.addUser')</p>
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-addParent">เพิ่มชื่อผู้ปกครอง</button>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-addParent">เพิ่มชื่อนักเรียน</button>
 
 
 
 
-                                      
+
 
                                           <div class="modal fade" id="modal-addParent">
                                                 <div class="modal-dialog modal-lg">

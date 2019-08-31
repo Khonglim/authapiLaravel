@@ -27,10 +27,45 @@ class AdminController extends Controller
 
     public function user()
     {
-        $users = DB::table('users')->leftJoin('alf_role_auth', 'users.type', '=', 'alf_role_auth.id')->get();
-        $data =array('users'=>$users,);
-        return view('adminischool/user',$data);
+
+        return view('adminischool/user');
     }
+
+    public function userData()
+    {
+        $users = DB::table('users')->leftJoin('alf_role_auth', 'users.type', '=', 'alf_role_auth.id')->get();
+
+        return Datatables::of($users)->addColumn('action', function ($users) {
+                    return '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$users->id.'" data-original-title="Edit" class="edit btn btn-primary btn-ms editUser">แก้ไข</a>';
+
+
+
+
+        })->toJson();
+
+    }
+
+     public function userEdit($id){
+          $users = DB::table('users')->where('id',$id)->get();
+          return response()->json($users);
+
+     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public function school()
@@ -68,7 +103,7 @@ class AdminController extends Controller
         );
 
 
-       
+
        return response()->json(['error'=> false,], 200);
 
     }

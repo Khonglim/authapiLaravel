@@ -233,6 +233,77 @@
 <script src="{{asset("adminLTE/dist/js/demo.js")}}"></script>
 <!-- page script -->
 <script src="{{ asset('js/manageAll.js') }}"></script>
+<script src="{{ asset('js/newManager.js') }}"></script>
+
+
+<script>
+var table = $('.data-Usertable').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: {
+        "url":"userData",
+        "dataType":"json",
+        "type":"POST",
+        "data":{"_token":"<?= csrf_token() ?>"}
+    },
+    columns: [
+        {data: 'username'},
+        
+        {data: 'name_auth'},
+        {data:"action","searchable":false,"orderable":false}
+    ]
+ });
+
+
+
+
+
+
+
+
+
+
+
+$('#saveBtn').click(function (e) {
+e.preventDefault();
+$(this).html('Sending..');
+$.ajax({
+  data: $('#productForm').serialize(),
+  url: "/",
+  type: "POST",
+  dataType: 'json',
+  success: function (data) {
+      $('#productForm').trigger("reset");
+      $('#ajaxModel').modal('hide');
+  },
+  error: function (data) {
+      console.log('Error:', data);
+      $('#saveBtn').html('Save Changes');
+  }
+    });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 @yield('javascript')
 

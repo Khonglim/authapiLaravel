@@ -39,6 +39,8 @@ Route::group(['prefix' => 'adminmaster'], function(){
         Route::post('/addschool', 'admin\AdminController@addschool' );
         Route::post('/saveeditstudent', 'admin\AdminController@saveeditstudent' );
         Route::post('/saveedittc', 'admin\AdminController@saveedittc' );
+        Route::post('/userData', 'admin\AdminController@userData' )->name('userData');
+        Route::get('/userData/{id}/edit', 'admin\AdminController@userEdit ' );
     });
 
 });
